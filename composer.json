@@ -1,5 +1,5 @@
 {
-  "name": "smart-gamma/symfoy-errors-telegram-bot",
+  "name": "smart-gamma/symfony-errors-telegram-bot",
   "description": "The Telegram bot allows to send notifications about Symfony critical errors to the configured project's chat",
   "license": "MIT",
   "authors": [
