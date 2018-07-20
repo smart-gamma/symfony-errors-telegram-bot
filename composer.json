@@ -11,7 +11,7 @@
   "type": "symfony-bundle",
   "require": {
     "symfony/swiftmailer-bundle": "^2.3|^3.0",
-    "symfony/twig-bridge": "^2.3|^3.0|^4.0",
+    "symfony/twig-bridge": "^2.3|^3.0",
     "telegram-bot/api": "^2.3"
   },
   "autoload": {
