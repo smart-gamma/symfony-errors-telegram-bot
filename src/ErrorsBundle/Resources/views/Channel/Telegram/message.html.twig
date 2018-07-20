@@ -12,16 +12,3 @@
 {% for key, value in params %}
 <b>{{ key }}</b>: {{ value|raw }}
 {% endfor %}
-
-<br /><br />
-$_SERVER: <br />
-{% for key, value in error.globalVars %}
-  {{ key }}:  {## value #}<br />
-{% endfor %}
-
-<br /><br />
-Backtrace: <br />
-
-{#{ error.backtrace|nl2br }#}<br /><br />
-
-{#<a href="{{ errorAdminUrl }}">View error details ID={{ error.id }}</a>#}
