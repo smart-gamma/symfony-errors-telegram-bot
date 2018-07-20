@@ -1,0 +1,24 @@
+<b>Message</b>: {{ error.message }}<br /><br />
+
+<b>URL</b>: {{ error.url }}<br />
+<b>Referrer</b>: {{ error.referrer }}<br />
+<b>Type</b>: {{ error.type }}<br />
+<b>Severity</b>: {{ error.severity }}<br />
+<b>Time</b>: {{ error.updateDate|date('Y-m-d H:i:s') }}<br />
+<b>File</b>: {{ error.file }}<br />
+<b>Line</b>: {{ error.line }}<br />
+{% for key, value in params %}
+  <b>{{ key }}</b>: {{ value }}<br />
+{% endfor %}
+{#<a href="{{ errorAdminUrl }}">View error details ID={{ error.id }}</a>#}
+
+<br /><br />
+$_SERVER: <br />
+{% for key, value in error.globalVars %}
+  {{ key }}:  {{ value }}<br />
+{% endfor %}
+
+<br /><br />
+Backtrace: <br />
+
+{{ error.backtrace|nl2br }}<br /><br />

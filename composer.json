@@ -1,0 +1,23 @@
+{
+  "name": "smart-gamma/symfoy-errors-telegram-bot",
+  "description": "The Telegram bot allows to send notifications about Symfony critical errors to the configured project's chat",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Evgeniy Kuzmin",
+      "email": "evgeniy.k@smart-gamma.com"
+    }
+  ],
+  "type": "symfony-bundle",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+
+  },
+  "autoload": {
+    "psr-4": {
+      "Gamma\\ErrorsBundle\\": "src/ErrorsBundle"
+    }
+  }
+}
+

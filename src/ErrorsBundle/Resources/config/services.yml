@@ -1,0 +1,34 @@
+services:
+  gamma_errors.manager.errors_manager:
+    class: Gamma\ErrorsBundle\Manager\ErrorsManager
+    arguments:
+      - "@gamma_errors.manager.channels_manager"
+      - "@request_stack"
+      - "@security.token_storage"
+      - "@logger"
+      - "%gamma.base_host%"
+
+  gamma_errors.manager.channels_manager:
+    class: Gamma\ErrorsBundle\Manager\ChannelsManager
+
+  gamma_errors.subscriber.error_handler:
+    class: Gamma\ErrorsBundle\Subscriber\ErrorHandlerSubscriber
+    arguments: ["@gamma_errors.debug.error_handler"]
+
+  gamma.user.subscriber.error_send:
+    class: Gamma\ErrorsBundle\Subscriber\ErrorSendSubscriber
+    #arguments: ["@gamma.repository.user_account", "@router", "@templating"]
+    arguments: [null, "@router", "@templating"]
+    tags: [ { name: kernel.event_subscriber } ]
+
+  gamma_errors.debug.error_handler:
+    class: Gamma\ErrorsBundle\Debug\ErrorHandler
+    arguments: ["@gamma_errors.manager.errors_manager", false]
+
+  #gamma_errors.channel.mail:
+  #  class: Gamma\ErrorsBundle\Channel\MailChannel
+  #  arguments: ["@mailer", "@router", "@templating", "@event_dispatcher", "@logger"]
+
+  gamma_errors.channel.telegram:
+    class: Gamma\ErrorsBundle\Channel\TelegramChannel
+    arguments: ["@router", "@templating", "@event_dispatcher", "@logger"]
