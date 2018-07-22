@@ -2,6 +2,7 @@
 
 namespace Gamma\ErrorsBundle\Subscriber;
 
+use App\Kernel;
 use Gamma\ErrorsBundle\Debug\ErrorHandler;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Event\ConsoleExceptionEvent;
@@ -35,11 +36,18 @@ class ErrorHandlerSubscriber implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return [
-            KernelEvents::REQUEST => ['onRequest'],
+        $events = [
+            KernelEvents::REQUEST   => ['onRequest'],
             KernelEvents::EXCEPTION => ['onKernelException'],
-            ConsoleEvents::EXCEPTION => ['onConsoleException'],
         ];
+
+        if (Kernel::VERSION >= '3.3') {
+            $events[ConsoleEvents::ERROR] = ['onConsoleException'];
+        } else {
+            $events[ConsoleEvents::EXCEPTION] = ['onConsoleException'];
+        }
+
+        return $events;
     }
 
     /**
