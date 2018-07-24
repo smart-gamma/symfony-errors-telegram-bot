@@ -2,7 +2,7 @@
 
 namespace Gamma\ErrorsBundle\Subscriber;
 
-use App\Kernel;
+use Symfony\Component\HttpKernel\Kernel;
 use Gamma\ErrorsBundle\Debug\ErrorHandler;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Event\ConsoleExceptionEvent;
