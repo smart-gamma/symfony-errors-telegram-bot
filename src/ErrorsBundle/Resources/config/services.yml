@@ -17,8 +17,7 @@ services:
 
   gamma.user.subscriber.error_send:
     class: Gamma\ErrorsBundle\Subscriber\ErrorSendSubscriber
-    #arguments: ["@gamma.repository.user_account", "@router", "@templating"]
-    arguments: [null, "@router", "@templating"]
+    arguments: [null, "@router", "@twig"]
     tags: [ { name: kernel.event_subscriber } ]
 
   gamma_errors.debug.error_handler:
@@ -27,8 +26,8 @@ services:
 
   #gamma_errors.channel.mail:
   #  class: Gamma\ErrorsBundle\Channel\MailChannel
-  #  arguments: ["@mailer", "@router", "@templating", "@event_dispatcher", "@logger"]
+  #  arguments: ["@mailer", "@router", "@twig", "@event_dispatcher", "@logger"]
 
   gamma_errors.channel.telegram:
     class: Gamma\ErrorsBundle\Channel\TelegramChannel
-    arguments: ["@router", "@templating", "@event_dispatcher", "@logger"]
+    arguments: ["@router", "@twig", "@event_dispatcher", "@logger"]
