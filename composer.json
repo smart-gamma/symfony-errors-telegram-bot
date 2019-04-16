@@ -14,7 +14,8 @@
     "symfony/swiftmailer-bundle": "^2.3|^3.0|^4.0",
     "symfony/twig-bundle": "^2.3|^3.0|^4.0",
     "symfony/console": "^2.3|^3.0|^4.0",
-    "telegram-bot/api": "^2.3"
+    "telegram-bot/api": "^2.3",
+    "simonbackx/slack-php-webhook": "^1.0"
   },
   "autoload": {
     "psr-4": {
@@ -22,4 +23,3 @@
     }
   }
 }
-

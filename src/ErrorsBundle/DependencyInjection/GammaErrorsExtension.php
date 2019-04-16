@@ -55,5 +55,14 @@ class GammaErrorsExtension extends Extension
 
             $channelsManagerDefinition->addMethodCall('addChannel', ['telegram', $telegramChannelDefinition]);
         }
+
+        if (array_key_exists('slack_channel', $config)) {
+            $channelConfig = $config['slack_channel'];
+            $telegramChannelDefinition = $container->getDefinition('gamma_errors.channel.slack');
+            $telegramChannelDefinition->addMethodCall('setWebhook', [$channelConfig['webhook']]);
+            $telegramChannelDefinition->addMethodCall('setSlackChannel', [$channelConfig['slack_channel']]);
+
+            $channelsManagerDefinition->addMethodCall('addChannel', ['slack', $telegramChannelDefinition]);
+        }
     }
 }
