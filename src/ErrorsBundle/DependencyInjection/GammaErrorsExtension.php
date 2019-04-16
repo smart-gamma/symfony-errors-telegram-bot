@@ -60,7 +60,7 @@ class GammaErrorsExtension extends Extension
             $channelConfig = $config['slack_channel'];
             $telegramChannelDefinition = $container->getDefinition('gamma_errors.channel.slack');
             $telegramChannelDefinition->addMethodCall('setWebhook', [$channelConfig['webhook']]);
-            $telegramChannelDefinition->addMethodCall('setSlackChannel', [$channelConfig['slack_channel']]);
+            $telegramChannelDefinition->addMethodCall('setSlackChannel', [$channelConfig['channel']]);
 
             $channelsManagerDefinition->addMethodCall('addChannel', ['slack', $telegramChannelDefinition]);
         }

@@ -44,7 +44,7 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('slack_channel')
                     ->children()
                         ->scalarNode('webhook')->defaultValue('')->end()
-                        ->scalarNode('chat_id')->defaultValue('')->end()
+                        ->scalarNode('channel')->defaultValue('')->end()
                     ->end()
                 ->end()
             ->end()
