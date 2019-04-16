@@ -33,5 +33,5 @@ services:
     arguments: ["@router", "@twig", "@event_dispatcher", "@logger"]
 
   gamma_errors.channel.slack:
-    class: Gamma\ErrorsBundle\Channel\TelegramChannel
+    class: Gamma\ErrorsBundle\Channel\SlackChannel
     arguments: ["@router", "@twig", "@event_dispatcher", "@logger"]
