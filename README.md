@@ -48,7 +48,7 @@ gamma_errors:
     enabled: true
     telegram_channel:
         auth_key: '%env(GAMMA_ERRORS_TELEGRAM_AUTH_KEY)%'
-        chat_id: "%env(GAMMA_ERRORS_TELEGRAM_CHAT_ID)%"
+        chat_id: '%env(GAMMA_ERRORS_TELEGRAM_CHAT_ID)%'
 ````
 
 ## 3. Creating a bot
@@ -124,3 +124,21 @@ Response
 ````
 
 chat_id is the number "-111111".
+
+5. Slack support
+
+In order to have additional channel of notification you can enable Slack with webhook integration
+
+- add "Incoming WebHooks" app to your Slack and copy webhook url from the settings
+
+- configure 
+
+````
+gamma_errors:
+    enabled: true
+    telegram_channel:
+    ....  
+    slack_channel:
+        webhook:  '%env(GAMMA_ERRORS_SLACK_WEBHOOK)%' 
+        channel:  '%env(GAMMA_ERRORS_SLACK_CHANNEL)%' 
+````
