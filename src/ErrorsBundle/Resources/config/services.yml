@@ -35,3 +35,4 @@ services:
   gamma_errors.channel.slack:
     class: Gamma\ErrorsBundle\Channel\TelegramChannel
     arguments: ["@router", "@twig", "@event_dispatcher", "@logger"]
+    
