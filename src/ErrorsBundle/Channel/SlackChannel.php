@@ -8,42 +8,38 @@ use Psr\Log\LoggerInterface;
 use Symfony\Bridge\Twig\TwigEngine;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use TelegramBot\Api\BotApi;
 
-/**
- * Class TelegramChannel.
- */
-class TelegramChannel extends AbstractChannel
+class SlackChannel extends AbstractChannel
 {
     /** @var Router */
     private $router;
     /** @var TwigEngine */
-    private $twigEngine;
+    private $templating;
     /** @var EventDispatcherInterface */
     private $dispatcher;
     /** @var LoggerInterface */
     private $logger;
     /** @var string */
-    protected $authKey;
+    protected $webhook;
     /** @var string */
-    protected $chatId;
+    protected $slackChannel;
 
     /**
      * TelegramChannel constructor.
      *
      * @param Router                   $router
-     * @param TwigEngine|\Twig_Environment               $twigEngine
+     * @param TwigEngine               $templating
      * @param EventDispatcherInterface $dispatcher
      * @param LoggerInterface          $logger
      */
     public function __construct(
         Router $router,
-        $twigEngine,
+        TwigEngine $templating,
         EventDispatcherInterface $dispatcher,
         LoggerInterface $logger
     ) {
         $this->router = $router;
-        $this->twigEngine = $twigEngine;
+        $this->templating = $templating;
         $this->dispatcher = $dispatcher;
         $this->logger = $logger;
     }
@@ -57,11 +53,14 @@ class TelegramChannel extends AbstractChannel
      */
     public function send(Error $error)
     {
-        $botApi = new BotApi($this->authKey);
+        $slack = new \Slack($this->webhook);
+        $message = new \SlackMessage($slack);
+        $message->setText($this->getMessageBodyByError($error))->setChannel($this->slackChannel);
+
         try {
-            $botApi->sendMessage($this->chatId, $this->getMessageBodyByError($error), 'html');
+            $message->send();
         } catch (\Exception $ex) {
-            $this->logger->warning('Gamma\ErrorsBundle: Failed to send message with error via Telegram channel: '.$ex->getMessage());
+            $this->logger->warning('Gamma\ErrorsBundle: Failed to send message with error via Slack channel: '.$ex->getMessage());
 
             return false;
         }
@@ -78,7 +77,7 @@ class TelegramChannel extends AbstractChannel
      */
     private function getMessageBodyByError(Error $error)
     {
-        $this->dispatcher->dispatch(ErrorEvent::PRE_ERROR_SEND, new ErrorEvent($error, 'telegram'));
+        $this->dispatcher->dispatch(ErrorEvent::PRE_ERROR_SEND, new ErrorEvent($error, 'slack'));
 
         $params = [];
         foreach ($error->getParams() as $key => $value) {
@@ -96,22 +95,22 @@ class TelegramChannel extends AbstractChannel
     }
 
     /**
+     * Sets bot webhook
+     *
+     * @param string $authKey
+     */
+    public function setWebhook(string $webhook): void
+    {
+        $this->webhook = $webhook;
+    }
+
+    /**
      * Sets bot auth key.
      *
      * @param string $authKey
      */
-    public function setAuthKey($authKey)
+    public function setSlackChannel(string $channel): void
     {
-        $this->authKey = $authKey;
-    }
-
-    /**
-     * Sets Telegram chat ID.
-     *
-     * @param string $chatId
-     */
-    public function setChatId($chatId)
-    {
-        $this->chatId = $chatId;
+        $this->slackChannel = $channel;
     }
 }
