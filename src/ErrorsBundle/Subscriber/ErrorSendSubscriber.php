@@ -27,9 +27,9 @@ class ErrorSendSubscriber implements EventSubscriberInterface
      *
      * @param ObjectRepository $userRepository
      * @param Router           $router
-     * @param TwigEngine       $templating
+     * @param TwigEngine|\Twig_Environment       $templating
      */
-    public function __construct(ObjectRepository $userRepository = null, Router $router, TwigEngine $templating)
+    public function __construct(ObjectRepository $userRepository = null, Router $router, $templating)
     {
         $this->userRepository = $userRepository;
         $this->router = $router;

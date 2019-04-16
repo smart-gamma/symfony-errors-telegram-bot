@@ -20,7 +20,7 @@ class MailChannel extends AbstractChannel
     /** @var Router */
     private $router;
     /** @var TwigEngine */
-    private $templating;
+    private $twigEngine;
     /** @var EventDispatcherInterface */
     private $dispatcher;
     /** @var LoggerInterface */
@@ -37,19 +37,19 @@ class MailChannel extends AbstractChannel
      *
      * @param \Swift_Mailer   $mailer
      * @param Router          $router
-     * @param TwigEngine      $templating
+     * @param TwigEngine|\Twig_Environment      $twigEngine
      * @param LoggerInterface $logger
      */
     public function __construct(
         \Swift_Mailer $mailer,
         Router $router,
-        TwigEngine $templating,
+        $twigEngine,
         EventDispatcherInterface $dispatcher,
         LoggerInterface $logger
     ) {
         $this->mailer = $mailer;
         $this->router = $router;
-        $this->templating = $templating;
+        $this->twigEngine = $twigEngine;
         $this->dispatcher = $dispatcher;
         $this->logger = $logger;
     }
@@ -122,7 +122,7 @@ class MailChannel extends AbstractChannel
             $globalVars[$key] = $newValue;
         }
 
-        return $this->templating->render(
+        return $this->twigEngine->render(
             'GammaErrorsBundle:Channel:Mail/message.html.twig',
             [
                 'error' => $error,

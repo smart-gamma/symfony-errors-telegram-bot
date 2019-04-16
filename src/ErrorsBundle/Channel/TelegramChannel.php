@@ -18,7 +18,7 @@ class TelegramChannel extends AbstractChannel
     /** @var Router */
     private $router;
     /** @var TwigEngine */
-    private $templating;
+    private $twigEngine;
     /** @var EventDispatcherInterface */
     private $dispatcher;
     /** @var LoggerInterface */
@@ -32,18 +32,18 @@ class TelegramChannel extends AbstractChannel
      * TelegramChannel constructor.
      *
      * @param Router                   $router
-     * @param TwigEngine               $templating
+     * @param TwigEngine|\Twig_Environment               $twigEngine
      * @param EventDispatcherInterface $dispatcher
      * @param LoggerInterface          $logger
      */
     public function __construct(
         Router $router,
-        TwigEngine $templating,
+        $twigEngine,
         EventDispatcherInterface $dispatcher,
         LoggerInterface $logger
     ) {
         $this->router = $router;
-        $this->templating = $templating;
+        $this->twigEngine = $twigEngine;
         $this->dispatcher = $dispatcher;
         $this->logger = $logger;
     }
