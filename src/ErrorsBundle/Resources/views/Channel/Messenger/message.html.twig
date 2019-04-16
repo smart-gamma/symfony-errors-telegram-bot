@@ -4,6 +4,9 @@
 
 <b>URL</b>: {{ error.url }}
 <b>Referrer</b>: {{ error.referrer }}
+{% if error.username  %}
+<b>Logged User</b>: {{ error.username }}
+{% endif %}
 <b>Type</b>: {{ error.type }}
 <b>Severity</b>: {{ error.severity }}
 <b>Time</b>: {{ error.updateDate|date('Y-m-d H:i:s') }}
