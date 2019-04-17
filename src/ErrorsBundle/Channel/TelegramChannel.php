@@ -86,8 +86,8 @@ class TelegramChannel extends AbstractChannel
             $params[$newKey] = $value;
         }
 
-        return $this->templating->render(
-            'GammaErrorsBundle:Channel:Messenger/message.html.twig',
+        return $this->twigEngine->render(
+            'GammaErrorsBundle:Channel:Telegram/message.html.twig',
             [
                 'error' => $error,
                 'params' => $params,

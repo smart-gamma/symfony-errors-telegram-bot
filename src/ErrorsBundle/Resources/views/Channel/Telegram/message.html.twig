@@ -1,0 +1,17 @@
+{{ error.baseHost }}({{ error.hostName }}) [{{ error.type }}-{{ error.severity }}]:
+
+<b>Message</b>: {{ error.message }}
+
+<b>URL</b>: {{ error.url }}
+<b>Referrer</b>: {{ error.referrer }}
+{% if error.username  %}
+<b>Logged User</b>: {{ error.username }}
+{% endif %}
+<b>Type</b>: {{ error.type }}
+<b>Severity</b>: {{ error.severity }}
+<b>Time</b>: {{ error.updateDate|date('Y-m-d H:i:s') }}
+<b>File</b>: {{ error.file }}
+<b>Line</b>: {{ error.line }}
+{% for key, value in params %}
+<b>{{ key }}</b>: {{ value|raw }}
+{% endfor %}

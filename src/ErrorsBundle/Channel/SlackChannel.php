@@ -34,7 +34,7 @@ class SlackChannel extends AbstractChannel
      */
     public function __construct(
         Router $router,
-        TwigEngine $templating,
+        $templating,
         EventDispatcherInterface $dispatcher,
         LoggerInterface $logger
     ) {
@@ -55,7 +55,7 @@ class SlackChannel extends AbstractChannel
     {
         $slack = new \Slack($this->webhook);
         $message = new \SlackMessage($slack);
-        $message->setText($this->getMessageBodyByError($error))->setChannel($this->slackChannel);
+        $message->setText(\htmlspecialchars($this->getMessageBodyByError($error)))->setChannel($this->slackChannel);
 
         try {
             $message->send();
@@ -86,7 +86,7 @@ class SlackChannel extends AbstractChannel
         }
 
         return $this->templating->render(
-            'GammaErrorsBundle:Channel:Messenger/message.html.twig',
+            'GammaErrorsBundle:Channel:Slack/message.html.twig',
             [
                 'error' => $error,
                 'params' => $params,
