@@ -148,6 +148,7 @@ class ErrorsManager
                     }
                     $error->setBaseHost($this->baseHost);
                     $error->setHostName(gethostname());
+                    $error->setRequestContent($request->getContent());
 
                     $token = $this->tokenStorage->getToken();
                     if (null !== $token) {

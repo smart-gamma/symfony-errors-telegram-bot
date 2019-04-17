@@ -12,6 +12,9 @@
 <b>Time</b>: {{ error.updateDate|date('Y-m-d H:i:s') }}
 <b>File</b>: {{ error.file }}
 <b>Line</b>: {{ error.line }}
+{% if error.requestContent  %}
+<b>Request</b>: {{ error.requestContent }}
+{% endif %}
 {% for key, value in params %}
 <b>{{ key }}</b>: {{ value|raw }}
 {% endfor %}

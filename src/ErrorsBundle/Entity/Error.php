@@ -30,6 +30,7 @@ class Error
     protected $notificationDate;
     protected $baseHost;
     protected $hostName;
+    protected $requestContent;
 
     /**
      * Set message.
@@ -507,6 +508,30 @@ class Error
     public function setHostName($hostName)
     {
         $this->hostName = $hostName;
+
+        return $this;
+    }
+
+    /**
+     * Gets request.
+     *
+     * @return string
+     */
+    public function getRequestContent()
+    {
+        return $this->requestContent;
+    }
+
+    /**
+     * Sets content.
+     *
+     * @param string $content
+     *
+     * @return $this
+     */
+    public function setRequestContent($content)
+    {
+        $this->requestContent = $content;
 
         return $this;
     }
