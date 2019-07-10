@@ -186,7 +186,10 @@ class ErrorsManager
                 try {
                     $channel->send($error);
                 } catch (\Exception $ex) {
-                    $this->logger->error('Gamma\ErrorsBundle: chanel '.$channel.' send error: '.$ex->getMessage());
+                    \sprintf('Gamma\ErrorsBundle: chanel %s send error: %s',
+                        get_class($channel),
+                        $ex->getMessage()
+                    );
                 }
             }
         }
